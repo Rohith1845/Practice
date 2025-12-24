@@ -13,13 +13,13 @@ services:
       dockerfile: dockerfile
     image: mongodb:v1 #krishnamsettyrohith/mongodb:v1
     container_name: mongodb
-    volumes:
-      - mongodb:/data/db
+    # volumes:
+    #   - mongodb:/data/db
   redis:
     image: redis:7.0
     container_name: redis
-    volumes:
-      - redis:/data
+    # volumes:
+    #   - redis:/data
   user:
     build:
       context: ./user
@@ -44,8 +44,8 @@ services:
       dockerfile: dockerfile
     image: mysql:v1 #krishnamsettyrohith/mysql:v1
     container_name: mysql
-    volumes:
-      - mysql:/var/lib/mysql
+    # volumes:
+    #   - mysql:/var/lib/mysql
   shipping:
     build:
       context: ./shipping
@@ -58,8 +58,8 @@ services:
   rabbitmq:
     image: rabbitmq:3
     container_name: rabbitmq
-    volumes:
-      - rabbitmq:/var/lib/rabbitmq
+    # volumes:
+    #   - rabbitmq:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=roboshop
       - RABBITMQ_DEFAULT_PASS=Roboshop@1
