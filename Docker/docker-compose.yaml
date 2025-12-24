@@ -11,7 +11,7 @@ services:
     build:
       context: ./mongodb
       dockerfile: dockerfile
-    image: krishnmasettyrohith/mongodb:v1
+    image: joindevops/mongodb:v1
     container_name: mongodb
     volumes:
       - mongodb:/data/db
