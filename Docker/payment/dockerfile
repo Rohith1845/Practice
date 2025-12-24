@@ -1,7 +1,7 @@
 FROM python:3.10
 EXPOSE 8080
 WORKDIR /opt/server
-COPY payment.py .
+COPY *.py .
 COPY rabbitmq.py .
 COPY payment.ini .
 COPY requirements.txt .
