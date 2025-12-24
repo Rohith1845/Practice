@@ -3,7 +3,7 @@ services:
     build:
       context: ./catalouge
       dockerfile: dockerfile
-    image: krishnamsettyrohith/catalouge:v1
+    image: joindevops/catalouge:v1
     container_name: catalouge
     depends_on:
       - mongodb
@@ -11,7 +11,7 @@ services:
     build:
       context: ./mongodb
       dockerfile: dockerfile
-    image: krishnamsettyrohith/mongodb:v1
+    image: joindevops/mongodb:v1
     container_name: mongodb
     volumes:
       - mongodb:/data/db
@@ -24,7 +24,7 @@ services:
     build:
       context: ./mysql
       dockerfile: dockerfile
-    image: krishnamsettyrohith/mysql:v1
+    image: joindevops/mysql:v1
     container_name: mysql
     volumes:
       - mysql:/var/lib/mysql
@@ -40,7 +40,7 @@ services:
     build:
       context: ./user
       dockerfile: dockerfile
-    image: krishnamsettyrohith/user:v1
+    image: joindevops/user:v1
     container_name: user
     depends_on:
       - redis
