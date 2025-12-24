@@ -40,7 +40,7 @@ services:
     build:
       context: ./user
       dockerfile: dockerfile
-    image: user:v1
+    image: joindevops/user:v1
     container_name: user
     depends_on:
       - redis
