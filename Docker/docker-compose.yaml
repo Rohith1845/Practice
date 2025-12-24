@@ -1,17 +1,17 @@
 services:
-  catalouge:
+  catalogue:
     build:
-      context: ./catalouge
+      context: ./catalogue
       dockerfile: dockerfile
-    image: joindevops/catalouge:v1
-    container_name: catalouge
+    image: krishnamsettyrohith/catalogue:v1
+    container_name: catalogue
     depends_on:
       - mongodb
   mongodb:
     build:
       context: ./mongodb
       dockerfile: dockerfile
-    image: joindevops/mongodb:v1
+    image: krishnamsettyrohith/mongodb:v1
     container_name: mongodb
     volumes:
       - mongodb:/data/db
@@ -24,7 +24,7 @@ services:
     build:
       context: ./mysql
       dockerfile: dockerfile
-    image: joindevops/mysql:v1
+    image: krishnamsettyrohith/mysql:v1
     container_name: mysql
     volumes:
       - mysql:/var/lib/mysql
@@ -40,7 +40,7 @@ services:
     build:
       context: ./user
       dockerfile: dockerfile
-    image: joindevops/user:v1
+    image: krishnamsettyrohith/user:v1
     container_name: user
     depends_on:
       - redis
@@ -52,7 +52,7 @@ services:
     image: krishnamsettyrohith/cart:v1
     container_name: cart
     depends_on:
-      - catalouge
+      - catalogue
       - redis
   shipping:
     build:
@@ -83,7 +83,7 @@ services:
     - "80:80"
     depends_on:
       - cart
-      - catalouge
+      - catalogue
       - user
       - shipping
       - payment
