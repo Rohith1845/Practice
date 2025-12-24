@@ -1,0 +1,99 @@
+services:
+  catalouge:
+    build:
+      context: ./catalouge
+      dockerfile: dockerfile
+    image: catalouge:v1
+    container_name: catalouge
+    depends_on:
+      - mongodb
+  mongodb:
+    build:
+      context: ./mongodb
+      dockerfile: dockerfile
+    image: krishnmasettyrohith/mongodb:v1
+    container_name: mongodb
+    volumes:
+    - mongodb: /data/db
+  redis:
+    image: redis:7.0
+    container_name: redis
+    volumes:
+    - redis: /data
+  mysql:
+    build:
+      context: ./mysql
+      dockerfile: dockerfile
+    image: mysql:v1
+    container_name: mysql
+    volumes:
+    - mysql: /var/lib/mysql
+  rabbitmq:
+    image: rabbitmq:3
+    container_name: rabbitmq
+    volumes:
+    - /var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=roboshop
+      - RABBITMQ_DEFAULT_PASS=Roboshop@1
+  user:
+    build:
+      context: ./user
+      dockerfile: dockerfile
+    image: user:v1
+    container_name: user
+    depends_on:
+      - redis
+      - mongodb
+  cart:
+    build:
+      context: ./cart
+      dockerfile: dockerfile
+    image: cart:v1
+    container_name: cart
+    depends_on:
+      - catalouge
+      - redis
+  shipping:
+    build:
+      context: ./shipping
+      dockerfile: dockerfile
+    image: shipping:v1
+    container_name: shipping
+    depends_on:
+      - cart
+      - mysql
+  payment:
+    build:
+      context: ./payment
+      dockerfile: dockerfile
+    image: payment:v1
+    container_name: payment
+    depends_on:
+      - cart
+      - user
+      - rabbitmq
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    image: frontend:v1
+    container_name: frontend
+    ports:
+    - "80:80"
+    depends_on:
+      - cart
+      - catalouge
+      - user
+      - shipping
+      - payment
+networks:
+  default:
+    driver: bridge
+    name: roboshop
+    external: false # true if you have created network manually using docker network command
+volumes:
+  mongodb:
+  redis:
+  mysql:
+  rabbitmq:
