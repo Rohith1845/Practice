@@ -1,6 +1,5 @@
 FROM python:3.9.25-alpine3.21 AS builder
 WORKDIR /opt/server
-COPY requirements.txt .
 # install build dependenices
 RUN apk add --no-cache \
     build-base \
