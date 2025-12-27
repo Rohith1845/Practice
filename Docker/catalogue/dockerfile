@@ -1,9 +1,9 @@
-FROM node:20.19.5-alphine3.21 As build
+FROM node:20.19.5-alpine3.21 As build
 WORKDIR /opt/server
 COPY package.json *.js ./
 RUN npm install
 
-FROM node:20.19.5-alphine3.21 
+FROM node:20.19.5-alpine3.21 
 # AS runtime if you not use runtime it will consider as only build stage
 EXPOSE 8080
 RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
