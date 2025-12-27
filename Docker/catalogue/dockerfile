@@ -1,8 +1,29 @@
-FROM node:20
+FROM node:20.19.5-alphine3.21 As build
 WORKDIR /opt/server
-COPY package.json .
-COPY *.js .
+COPY package.json *.js ./
 RUN npm install
+
+FROM node:20.19.5-alphine3.21 
+# AS runtime if you not use runtime it will consider as only build stage
+EXPOSE 8080
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop && \
+    chown -R roboshop:roboshop /opt/server
+COPY --from=build --chown=roboshop:roboshop /opt/server /opt/server
+LABEL com.project="roboshop" \
+      component="catalogue" \
+      cretaedBy="Rohith"
 ENV MONGO="true" \
     MONGO_URL="mongodb://mongodb:27017/catalogue"
-CMD [ "node","server.js" ]
+USER roboshop
+CMD [ "server.js" ]
+ENTRYPOINT [ "node" ]
+
+
+# FROM node:20
+# WORKDIR /opt/server
+# COPY package.json .
+# COPY *.js .
+# RUN npm install
+# ENV MONGO="true" \
+#     MONGO_URL="mongodb://mongodb:27017/catalogue"
+# CMD [ "node","server.js" ]
