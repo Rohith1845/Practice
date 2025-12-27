@@ -1,4 +1,4 @@
-FROM maven:3.9.12 as builder 
+FROM maven:3.9.12 AS builder 
 WORKDIR /opt/server
 COPY pom.xm/ src ./
 RUN mvn clean package && \
